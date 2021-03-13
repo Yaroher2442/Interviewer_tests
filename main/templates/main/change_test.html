@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+</head>
+
+<body>
+{% include "./helpers/header.html" %}
+<div class="container-fluid">
+    <div class="d-flex">
+        <h2>Изменение теста {{data.title}}</h2>
+        <div class="m-1 container">
+            <form method=post class="needs-validation" novalidate="" action="/test/edit/{{data.id}}">
+                <div class="mb-3">
+                    <label>Название</label>
+                    <input name="title" class="form-control" type="text" value="{{data.title}}">
+                </div>
+                <div class="mb-3">
+                    <label>Дата окончания</label>
+                    <input name="end_date" class="form-control" type="date" value="{{data.end_date}}">
+                </div>
+                <div class="mb-3">
+                    <label>Описание</label>
+                    <input name="description" class="form-control" type="text" value="{{data.description}}">
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Изменить</button>
+            </form>
+        </div>
+        <div class="m-1 container">
+            <div class="m-1">
+                <h2>Список вопросов</h2>
+                <ul class="list-group">
+                    {%for item in questions%}
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between">
+                            {{item.text}}
+                            <form method="post" action="/test/question/delite/{{item.id}}">
+                                <button class="btn btn-outline-danger btn-sm" type="submit">Удалить</button>
+                            </form>
+                        </div>
+                    </li>
+                    {%endfor%}
+                </ul>
+                <a>{{item}}</a>
+            </div>
+            <div class="m-1">
+                <a type="button" href="/test/question/add/{{data.id}}" class="btn btn-secondary"> Добавьте вопрос </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

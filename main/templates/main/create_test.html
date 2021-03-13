@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+</head>
+
+<body>
+{% include "./helpers/header.html" %}
+<div class="container-fluid">
+    <div class="d-flex">
+        <h2>Создайте тест</h2>
+        <div class="m-1 container">
+            <form method=post class="needs-validation" novalidate="" action="/test/create">
+                <div class="mb-3">
+                    <label>Название</label>
+                    {{form.title}}
+                </div>
+                <div class="mb-3">
+                    <label>Дата начала</label>
+                    {{form.start_date}}
+                </div>
+                <div class="mb-3">
+                    <label>Дата окончания</label>
+                    {{form.end_date}}
+                </div>
+                <div class="mb-3">
+                    <label>Описание</label>
+                    {{form.description}}
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Создать</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+

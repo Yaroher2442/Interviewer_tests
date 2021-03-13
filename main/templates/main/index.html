@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+</head>
+
+<body>
+{% include "./helpers/header.html" %}
+<div class="container-fluid">
+    <div class="d-flex">
+        <div class="d-flex flex-wrap " id="elements">
+            <div class="m-2 card">
+                <div class="card-body">
+                    <h3 class="card-title">Тест</h3>
+                    <p class="mr-2 card-text">aswfqqwfqwfqwfqwqwfq wfqwf</p>
+                    <button class="btn btn-info" href="/qwrqwr">hrefs</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<select id="s-1">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+</select>
+<script>
+        console.log('qwrqwr')
+        $('.btn').on('click',
+        (e)=>{
+            $('#elements').append('')
+            }
+        )
+        $('#s-1').on('change',
+        (e)=>{
+                console.log($(e.target).val())
+                if($(e.target).val()==='1'){
+                    $('#elements').html('')
+                    $('#elements').append('1')
+                }
+                if($(e.target).val()==='2'){
+                    $('#elements').html('')
+                    $('#elements').append('2')
+                }
+                if($(e.target).val()==='3'){
+                    $('#elements').html('')
+                    $('#elements').append('qwrqwr')
+                }
+            }
+        )
+
+</script>
+</body>
+</html>
+
+<form method="POST" class="needs-validation" action="/test/question/add/{{id}}"><div class="mb-3"><label>Вопрос</label>{{form.text}}</div><div class="mb-3"><label>Тип ответа</label>{{form.type}}</div><div id="place"></div><div class="m-1" id="btn_plus"></div><div class="m-1"><button class="btn btn-primary btn-lg btn-block" type="submit">Создать</button></div></form>

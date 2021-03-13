@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</head>
+
+<body>
+{% include "./helpers/header.html" %}
+<div class="container-fluid">
+    <div class="d-flex">
+        <h2>Ваши ответы на тест "{{test_name}}"</h2>
+        <div class="m-1 container">
+            {%for item in ans_lst%}
+            <div class="m-2">
+                <ul class="navbar-nav mr-auto">
+                    №{{forloop.counter}}
+                    <li class="mb-1 nav-item">
+                        <p class="mr-2 card-text">Вопрос: {{item.q.text}}</p>
+                    </li>
+                    <li class="mb-1 nav-item">
+                        <p class="mr-2 card-text">Ответ: {{item.a.answer}}</p>
+                    </li>
+                </ul>
+            </div>
+            <hr align="center" width="1000" color="Black"/>
+            {%endfor%}
+        </div>
+        <div>
+            <a class="btn btn-primary btn-lg btn-block" href="/test/all"> На главную</a>
+        </div>
+
+    </div>
+</div>
+</body>
+

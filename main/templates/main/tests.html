@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+</head>
+
+<body>
+{% include "./helpers/header.html" %}
+<div class="container-fluid">
+    <div class="d-flex">
+        <div class="d-flex flex-wrap " id="elements">
+            {%for item in data%}
+            <div class="m-2 card">
+                <div class="card-body">
+                    <h3 class="card-title">{{item.title}}</h3>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="mb-1 nav-item">
+                            <p class="mr-2 card-text">{{item.description}}</p>
+                        </li>
+                        {% if group == 'admins'%}
+                        <li class="mb-1 nav-item">
+                            <a type="button" class="btn btn-success" href="/test/edit/{{item.id}}">Изменить</a>
+                        </li>
+                        <li class="mb-1 nav-item">
+                            <form method="post" action="/test/delite/{{item.id}}">
+                                <button class="btn btn-danger" type="submit">удалить</button>
+                            </form>
+                        </li>
+                        {% else %}
+                        <li class="mb-1 nav-item">
+                            <a class="btn btn-info" href="/test/user/{{item.id}}">К тесту</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+
+        {% if group == 'admins'%}
+        <div class="card">
+            <div class="card-body">
+                <div class="card-text">
+                    <a type="button" class="btn btn-success" href="/test/create">Создать новый опрос</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>
+

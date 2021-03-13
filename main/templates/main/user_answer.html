@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</head>
+
+<body>
+{% include "./helpers/header.html" %}
+<div class="container-fluid">
+    <div class="d-flex">
+        <h2>Ваши ответы на тест "{{test_name}}"</h2>
+        <div class="m-1 container">
+            <form id="my_form" method="POST" class="needs-validation" action="/test/user/answer/{{test_id}}">
+
+                {%for item in ans_lst%}
+                    {{item.quest.text}}
+                        {% if item.type == 'text' %}
+                            <div class="m-2">
+                                <input form="my_form" name="text_{{item.quest.id}}" class="form-control" type="text" placeholder="Ответ" id="field">
+                            </div>
+                        {% endif %}
+                        {% if item.type == 'single' %}
+                                <select class=" m-2 form-control" name="single_{{item.quest.id}}">
+                                {%for aw in item.answrs%}
+                                    <option value="{{aw.text}}">{{aw.text}}</option>
+                                    {%endfor%}
+                                </select>
+                        {% endif %}
+                        {% if item.type == 'multiple' %}
+                            <select class="m-2 form-control" id="demo" name="multiple_{{item.quest.id}}" multiple="multiple">
+                                {%for aw in item.answrs%}
+                                        <option value="{{aw.text}}">{{aw.text}}</option>
+                                {%endfor%}
+                            </select>
+                        {% endif %}
+                {%endfor%}
+                <button class="btn btn-primary btn-lg btn-block" type="submit" id="sbm">Ответить</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+

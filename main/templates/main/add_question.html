@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+</head>
+
+<body>
+{% include "./helpers/header.html" %}
+<div class="container-fluid">
+    <div class="d-flex">
+        <h2>Создайте вопрос для теста "{{test_name}}"</h2>
+        <div class="m-1 container">
+            <form id="my_form"  method="POST" class="needs-validation" action="/test/question/add/{{id}}">
+                <div class="mb-3">
+                    <label>Вопрос</label>
+                    {{form.text}}
+                </div>
+                <div class="mb-3">
+                    <label>Тип ответа</label>
+                    {{form.type}}
+                </div>
+
+                <div  id="place">
+
+                </div>
+                <div class="m-1" id="btn_plus">
+
+                </div>
+                <div class="m-1">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" id="sbm" >Создать</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+        $('#selector').on('change',
+        (e)=>{
+                console.log($(e.target).val())
+                if($(e.target).val()==='text'){
+                console.log($(e.target).val())
+                    $('#btn_plus').html('')
+                    $('#place').html('')
+                    $('#place').append('')
+
+                }
+                if($(e.target).val()==='single'){
+                    $('#btn_plus').html('')
+                    $('#btn_plus').append('<button type="button" class="btn btn-secondary" id="plus">+</button>')
+                    $('#place').html('')
+                    $('#place').append('Опишите ответы')
+
+                    var count=0
+                    $('#plus').on('click',
+                    (e)=>{
+                    count+=1
+                    console.log(count)
+                    $('#place').append('<div class="m-2"><input form="my_form" name="answer'+count+'"class="form-control" type="text" placeholder="Ответ" id="field"></div>')
+                        })
+
+                }
+                if($(e.target).val()==='multiple'){
+                    $('#btn_plus').html('')
+                    $('#btn_plus').append('<button type="button" class="btn btn-secondary" id="plus">+</button>')
+                    $('#place').html('')
+                    $('#place').append('Опишите ответы')
+
+                    var count=0
+                    $('#plus').on('click',
+                    (e)=>{
+                    count+=1
+                    console.log(count)
+                    $('#place').append('<div class="m-2"><input form="my_form" name="answer'+count+'"class="form-control" type="text" placeholder="Ответ" id="field"></div>')
+                        })
+               }
+          }
+        )
+
+        $("#my_form").submit(function(){
+            var $form = $(this);
+            $.post(
+                    $form.attr('action'),
+                    $form.serialize()
+                );
+            $(location).attr('href','/test/edit/{{id}}');
+            return false;
+        })
+
+</script>
+
+</body>
+</html>
+
