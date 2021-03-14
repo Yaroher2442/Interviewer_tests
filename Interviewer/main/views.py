@@ -73,7 +73,7 @@ class TestAll(View):
         user_name = request.user.username
         user = User.objects.get(username=user_name)
         self.context['user_name'] = user_name
-        if user.groups.filter(name='users').exists():
+        if user.is_superuser!=1:
             self.context['group'] = 'users'
             return render(request, 'main/tests.html', self.context)
         else:
@@ -90,7 +90,7 @@ class TestCreatetView(View):
         user = User.objects.get(username=user_name)
         self.context['user_name'] = user_name
         print(user.groups.filter(name='admins').exists())
-        if user.groups.filter(name='admins').exists():
+        if user.is_superuser==1:
             return render(request, 'main/create_test.html', self.context)
         else:
             return HttpResponseRedirect('/test/all')
@@ -111,7 +111,7 @@ class TestEditView(View):
         user_name = request.user.username
         user = User.objects.get(username=user_name)
         self.context['user_name'] = user_name
-        if user.groups.filter(name='admins').exists():
+        if user.is_superuser==1:
             self.context['data'] = Test.objects.get(id=test_id)
             self.context['questions'] = Question.objects.filter(test_id=test_id)
             self.context['ans_lst'] = [Answer.objects.filter(q_id=an) for an in self.context['questions']]
@@ -160,7 +160,7 @@ class TestQuestionAdd(View):
         user_name = request.user.username
         user = User.objects.get(username=user_name)
         self.context['user_name'] = user_name
-        if user.groups.filter(name='admins').exists():
+        if user.is_superuser==1:
             self.context['id'] = test_id
             self.context['test_name'] = Test.objects.get(id=test_id).title
             return render(request, 'main/add_question.html', self.context)
@@ -200,7 +200,7 @@ class UserAnswerAdd(View):
         user_name = request.user.username
         user = User.objects.get(username=user_name)
         self.context['user_name'] = user_name
-        if user.groups.filter(name='admins').exists():
+        if user.is_superuser==1:
             self.context['test_id'] = test_id
             self.context['questions'] = Question.objects.filter(test_id=test_id)
             self.context['ans_lst'] = []
@@ -244,7 +244,7 @@ class UserAnswerShow(View):
         user_name = request.user.username
         user = User.objects.get(username=user_name)
         self.context['user_name'] = user_name
-        if user.groups.filter(name='admins').exists():
+        if user.is_superuser==1:
             cur_test = Test.objects.get(id=test_id)
             self.context['test_name'] = cur_test.title
             self.context['test_id'] = test_id
@@ -269,7 +269,7 @@ class UserController(View):
     def get(self, request, test_id):
         user_name = request.user.username
         user = User.objects.get(username=user_name)
-        if user.groups.filter(name='users').exists():
+        if user.is_superuser!=1:
             t=Test.objects.get(id=test_id)
             ques = Question.objects.filter(test_id=test_id)
             lis=[]
